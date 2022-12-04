@@ -2,29 +2,19 @@ class BigInteger
     attr_reader :num_array
 
     def initialize(num)
-        raise "invalid number" unless num.match(/^[0-9]*$/)
-        @num = num
-        @num_array = num.split("")
+        str_num = num.to_s
+        raise "invalid number" unless str_num.match(/^[0-9]*$/)
+        @num = str_num
+        @num_array = str_num.split("")
     end
 
-    def print_line(value)
-        puts value.to_s.rjust(self.length + 1)
-    end
-
-    def print_result(first, second)    
-        print_line(first)
-        print_line(second)
-        print_line("-" * self.length)
-        print_line(self.to_s)
-    end
-
-    def sum(other_bignum, **args)
+    def +(other_bignum)
         other_chars = other_bignum.num_array
         
         if @num_array.length >= other_chars.length
-        apply_sum(@num_array, other_chars)
+            apply_sum(@num_array, other_chars)
         else
-        apply_sum(other_chars, @num_array)
+            apply_sum(other_chars, @num_array)
         end
     end
 
@@ -60,9 +50,18 @@ class BigInteger
     end
 end
 
-first = BigInteger.new("99999999999999999999999")
-second = BigInteger.new("8888888888888888888")
+class PrintResult
+    def print_line(value, space_value)
+        puts value.to_s.rjust(space_value + 1)
+    end
 
-res = first.sum(second)
-res.print_result(first, second)
+    def print_result(space_value, *args)
+        args.each do |value|
+            print_line(value, space_value)
+        end
+    end
+end
+
+
+puts BigInteger.new("9999999") + BigInteger.new("111111")
         
