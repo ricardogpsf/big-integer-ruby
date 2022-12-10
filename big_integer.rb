@@ -41,6 +41,17 @@ class BigInteger
         BigInteger.new(result.reverse)
     end
 
+    def *(other)
+        i = BigInteger.new(0)
+        val_1 = BigInteger.new(1)
+        res = BigInteger.new(0)
+        while i.to_s != @num.to_s do
+            res = res + other
+            i = i + val_1
+        end
+        res
+    end
+
     def length
         @num.length
     end
@@ -63,5 +74,5 @@ class PrintResult
 end
 
 
-puts BigInteger.new("9999999") + BigInteger.new("111111")
+puts BigInteger.new("11") * BigInteger.new("1111111111111111111111111111111111")
         
